@@ -1,0 +1,14 @@
+---
+# tasks file for deploy
+
+- debug:
+    msg: "Start deploy package"
+  tags:
+    - deploy
+
+- debug:
+    msg:
+        - "HashiCorp Vault Secret ID : {{ hasicorp_vault_secret_id }}"
+        - "Your name : {{ runner_name }}"
+  tags:
+    - deploy

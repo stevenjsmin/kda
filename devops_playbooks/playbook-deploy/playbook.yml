@@ -1,0 +1,31 @@
+---
+
+- name: Application release
+  #hosts: all
+  #hosts: localhost
+  #hosts: dev_backend_service
+  hosts: front_service
+  #hosts: backend_service:front_service
+  #hosts: backend_service:front_service:!dev_backend_service
+  become: false
+
+  vars_prompt:
+    - name: "runner_name"
+      prompt: "Enter your name"
+      private: no
+
+    - name: "hasicorp_vault_secret_id"
+      prompt: "Enter HashiCorp Vault Secret ID"
+      private: yes
+
+  roles:
+    - role: checkout-code
+    - role: checkout-vault
+
+    - role: packaging
+
+    - role: deploy
+    - role: test-and-report
+    - role: monitoring
+
+

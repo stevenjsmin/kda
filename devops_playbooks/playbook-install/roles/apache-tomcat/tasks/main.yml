@@ -1,0 +1,131 @@
+---
+# tasks file for apatch-tomcat
+
+- name: Print Anisble facts
+  block:
+      - name: Print all facts
+        debug: var=ansible_facts
+
+      #- name: Print Architecture
+      #  debug: var=ansible_facts.architecture
+      #
+      #- name: Print all facts
+      #  debug:
+      #      msg:
+      #          - "Architecture: {{ansible_facts.architecture}}"
+      #          - "VM Type: {{ansible_facts.virtualization_type}}"
+  tags:
+    - tomcat
+    - debugging
+    - always
+
+
+
+- name: Set fact of user roles to be enabled
+  set_fact:
+    tomcat_user_roles: "{{ (tomcat_user_roles + item.roles.split(', ')|list)|unique }}"
+  with_items:
+    - "{{ tomcat_users }}"
+  tags:
+    - tomcat
+
+
+# - name: "Prepare installed dirs"
+#   block:
+#     - name: "Create tmp dir"
+#       file:
+#         path: "{{ tmp_dir }}"
+#         state: directory
+#         mode: '0755'
+#
+#     - name: "Create applications root"
+#       file:
+#         path: "{{ root_dir }}"
+#         state: directory
+#         mode: '0755'
+#   tags:
+#     - tomcat
+
+- name: "Prepare installed dirs"
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+      - "{{ tmp_dir }}"
+      - "{{ application_install_dir }}"
+  tags:
+    - tomcat
+
+- debug: var=tomcat_admin_password
+  tags:
+    - tomcat
+
+- name: "Download Apache Tomcat v{{ tomcat_full_version }}"
+  get_url:
+    url: "{{ tomcat_download_url }}"
+    dest: "{{ application_install_dir }}"
+    validate_certs : false
+    timeout: 120
+  tags:
+    - tomcat
+
+- name: Check the Tomcat download file exists
+  stat:
+    path: "{{ application_install_dir }}/apache-tomcat-{{ tomcat_full_version }}.tar.gz"
+  register: tomcat_archive_file
+  tags:
+    - tomcat
+
+
+- name: "Extract {{ tomcat_full_version }}.tar.gz into {{ application_install_dir }}"
+  block:
+    - unarchive:
+        src: "{{ application_install_dir }}/apache-tomcat-{{ tomcat_full_version }}.tar.gz"
+        dest: "{{ application_install_dir }}"
+        remote_src: yes
+      register: extract_result
+
+    - debug: var=extract_result
+
+    - debug:
+        msg:
+            - "Extract dest: {{ extract_result.dest }}"
+            - "Changed result : {{ extract_result.changed }}"
+            - "Downloaded archive file : {{ tomcat_archive_file }}"
+
+    - name: Create setenv.sh
+      template:
+        src:  "{{ tomcat_major_version }}.{{ tomcat_detail_version }}/setenv.sh.template"
+        dest: "{{ application_install_dir }}/apache-tomcat-{{ tomcat_major_version }}.{{ tomcat_detail_version }}/bin/setenv.sh"
+
+    - name: Set users xml file
+      template:
+        src: "tomcat-users.xml.j2"
+        dest: "{{ application_install_dir }}/apache-tomcat-{{ tomcat_major_version }}.{{ tomcat_detail_version }}/conf/tomcat-users.xml"
+
+    - name: "Add JVM parameter"
+      blockinfile:
+        path: "{{ application_install_dir }}/apache-tomcat-{{ tomcat_major_version }}.{{ tomcat_detail_version }}/bin/version.sh"
+        marker: "### {mark} TOMCAT ANSIBLE MANAGED BLOCK"
+        insertafter: "EXECUTABLE=catalina.sh"
+        # insertbefore: "EXECUTABLE=catalina.sh"
+        block: |
+          export DSTEVEN_TEST_VAR1=hello1
+          export DSTEVEN_TEST_VAR2=hello2
+
+
+    - name: Remove the Tomcat download archive file
+      file:
+        path: "{{ application_install_dir }}/apache-tomcat-{{ tomcat_full_version }}.tar.gz"
+        state: absent
+      when:
+        - tomcat_archive_file is defined
+        - tomcat_archive_file.stat.exists == True
+
+  tags:
+    - tomcat
+    - install_front_component
+
+
+

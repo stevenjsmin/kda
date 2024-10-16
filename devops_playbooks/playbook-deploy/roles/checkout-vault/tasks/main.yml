@@ -1,0 +1,8 @@
+---
+# tasks file for checkout-vault
+
+- debug:
+    msg:
+        - "Check out secret data from HashiCorp Vault before package"
+  tags:
+    - vault

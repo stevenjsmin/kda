@@ -1,0 +1,13 @@
+#!/bin/bash
+
+export ACCEPT_EULA=Y
+
+## Install yum packages
+{% for pkg  in yum_packages %}
+yum install {{ pkg }} -y
+{% endfor %}
+
+### Run Shell commands
+{% for cmd  in shell_commands %}
+{{ cmd.command }}
+{% endfor %}

@@ -1,0 +1,11 @@
+---
+# tasks file for checkout
+
+
+- name: Git checkout
+  ansible.builtin.git:
+    repo: 'https://github.com/stevenjsmin/hello-kda.git'
+    dest: /root/repos
+    version: develop
+  tags:
+    - always

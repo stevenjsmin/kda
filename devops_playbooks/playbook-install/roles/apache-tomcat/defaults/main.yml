@@ -1,0 +1,13 @@
+---
+# defaults file for apatch-tomcat
+
+tomcat_users:
+  - username: "admin"
+    password: "{{ tomcat_admin_password }}"
+    roles: "manager-gui, admin-gui, manager"
+
+  - username: "steven"
+    password: "{{ tomcat_admin_password }}"
+    roles: "admin-gui, manager"
+
+tomcat_user_roles: []

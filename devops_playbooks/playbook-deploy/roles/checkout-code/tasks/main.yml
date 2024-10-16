@@ -1,0 +1,8 @@
+---
+# tasks file for checkout-code
+
+- debug:
+    msg: "Start Code checkout from VCS...."
+  tags:
+    - git-clone
+    - checkout-code

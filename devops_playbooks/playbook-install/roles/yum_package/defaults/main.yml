@@ -1,0 +1,30 @@
+---
+
+yum_packages:
+  - binutils
+  - bzip2
+  - bzip2-devel
+  - dejavu-sans-fonts
+  - dejavu-serif-fonts
+  - fontconfig
+  - git
+  - gcc
+  - gcc-c++
+  - krb5-devel
+  - krb5-workstation.
+  - msodbcsql17
+  - mssql-tools
+  - openssl-devel
+  - pexpect
+  - powershell
+  - redhat-lsb-core
+  - sshpass
+  - unixODBC
+  - unixODBC-devel
+  - unzip
+
+shell_commands:
+  - command: "update-crypto-policies --set LEGACY"
+    description: "Fix for curl: (35) error:141A318A:SSL routines:tls_process_ske_dhe:dh key too small"
+  - command: "dnf groupinstall 'Development Tools' -y"
+    description: "Set for develop environment" 

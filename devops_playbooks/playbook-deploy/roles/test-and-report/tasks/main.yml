@@ -1,0 +1,10 @@
+---
+# tasks file for test-and-report
+
+- debug:
+    msg:
+        - "Start TVT test"
+        - "Sending the test result via Teams and Slack"
+  tags:
+    - test
+    - report

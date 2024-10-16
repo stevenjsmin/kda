@@ -1,0 +1,9 @@
+---
+# tasks file for monitoring
+
+- debug:
+    msg:
+        - "Start sending Telemetry data to Splunk"
+        - "Start sending Telemetry data to NewRleic"
+  tags:
+    - monitoring

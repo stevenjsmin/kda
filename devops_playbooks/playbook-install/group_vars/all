@@ -1,0 +1,21 @@
+---
+# file: group_vars/all
+#
+# group_vars file
+#
+
+java_vendor: "zulu"
+java_major_version: "11.0.24"
+java_update_version: "124"
+java_download_url: "https://cdn.azul.com/{{ java_vendor }}/bin/zulu11.74.15-ca-jdk{{ java_major_version }}-linux_x64.tar.gz"
+
+
+tomcat_major_version: "9"
+tomcat_detail_version: "0.96"
+tomcat_full_version: "{{ tomcat_major_version }}.{{ tomcat_detail_version }}"
+tomcat_download_url: "https://dlcdn.apache.org/tomcat/tomcat-{{ tomcat_major_version }}/v{{ tomcat_full_version }}/bin/apache-tomcat-{{ tomcat_full_version }}.tar.gz"
+
+root_dir: "/root"
+tmp_dir: "{{ root_dir }}/tmp"
+application_install_dir: "{{ root_dir }}/applications"
+

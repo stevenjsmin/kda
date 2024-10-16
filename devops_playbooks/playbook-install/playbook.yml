@@ -1,0 +1,22 @@
+---
+
+- name: Software install and change
+  #hosts: all
+  #hosts: localhost
+  #hosts: dev_backend_service
+  hosts: backend_service
+  #hosts: front_service
+  #hosts: backend_service:front_service
+  #hosts: backend_service:front_service:!dev_backend_service
+  become: false
+
+  vars_prompt:
+    - name: "tomcat_admin_password"
+      prompt: "Enter Tomcat admin password which is required for Apache Tomcat installation"
+      private: yes
+
+  roles:
+    - role: checkout
+    - role: yum_package
+    - role: apache-tomcat
+    - role: java

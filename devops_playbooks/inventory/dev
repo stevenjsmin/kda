@@ -1,0 +1,58 @@
+---
+
+all:
+  children:
+    node100:
+      hosts:
+        ec2-3-26-29-109.ap-southeast-2.compute.amazonaws.com:
+          service1_port: 8100
+          service2_port: 8200
+      vars:
+        front_app_branch: "dev/24.3.0"
+        was_jvm_min_heap: "30G"
+        was_jvm_max_heap: "30G"
+
+    node200:
+      hosts:
+        ec2-3-107-165-254.ap-southeast-2.compute.amazonaws.com:
+          service1_port: 9100
+          service2_port: 9200
+      vars:
+        backend_app_branch: "feature/kda-demo-test"
+        newrelic_apm_install: True
+        newrelic_infra_install: True
+
+    dev_front_service:
+      children:
+        node100:
+#        node110:
+#        node120:
+#        node130:
+      vars:
+        allowed_users:
+          - "Steven Min"
+          - "Mozart"
+          - "Bach"
+
+    dev_backend_service:
+      children:
+        node100:
+#        node110:
+#        node120:
+        node200:
+#        node210:
+#        node220:
+      vars:
+        db_name: devdb
+        db_host: database.service.dev
+        db_host_port: 3306
+        was_jvm_min_heap: "30G"
+        was_jvm_max_heap: "30G"
+
+    dev_both_service:
+      children:
+        node100:
+      #        node110:
+      #        node120:
+      #        node130:
+

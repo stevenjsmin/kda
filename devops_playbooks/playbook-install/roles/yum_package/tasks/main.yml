@@ -1,0 +1,20 @@
+---
+
+- name: Run sudo command to install yum pacakges or shell command to be run with root/sudo priviliges
+  block:
+    - name: Create install.sh to be run by root/sudo priviliges
+      template:
+        src: "install.sh.j2"
+        dest: "/root/tmp/install.sh"
+        mode: '0755'
+
+    #- name: Run install.sh
+    # shell: "./privilege_command.exp '{{ experian_dir.stat.pw_name }}' '{{ ansible_ssh_pass }}' '1' 'Server provisioning' 'cp {{ temp_install_directory }}/install.sh {{ installation_temp_directory }}; sudo {{ installation_script_directory }}/install.sh'"
+    # args:
+    #   chdir: "{{ temp_install_directory }}"
+    # register: result
+    # failed_when:
+    #   - '"Permission denied" in result.stdout'
+  tags:
+    - yum
+    - yum_package

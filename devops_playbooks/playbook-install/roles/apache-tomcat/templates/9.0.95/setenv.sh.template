@@ -1,0 +1,10 @@
+# You may pass JVM startup parameters to Java here. If unset, the default
+# options will be: -Djava.awt.headless=true -XX:+UseConcMarkSweepGC
+#
+# Use "-XX:+UseConcMarkSweepGC" to enable the CMS garbage collector (improved
+# response time). If you use that option and you run Tomcat on a machine with
+# exactly one CPU chip that contains one or two cores, you should also add
+# the "-XX:+CMSIncrementalMode" option.
+
+export JAVA_OPTS="-Xmx{{ was_jvm_max_heap }} -Xms{{ was_jvm_min_heap }}"
+

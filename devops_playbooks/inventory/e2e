@@ -1,0 +1,54 @@
+---
+
+all:
+  children:
+    node300:
+      hosts:
+        ec2-13-55-148-149.ap-southeast-2.compute.amazonaws.com:
+          service1_port: 8100
+          service2_port: 8200
+      vars:
+        front_app_branch: "dev/24.2.0"
+    node400:
+      hosts:
+        ec2-3-26-76-64.ap-southeast-2.compute.amazonaws.com:
+          service1_port: 9100
+          service2_port: 9200
+      vars:
+        backend_app_branch: "feature/kda-demo-test"
+        newrelic_apm_install: True
+        newrelic_infra_install: True
+
+    e2e_front_service:
+      children:
+        node300:
+#        node310:
+#        node320:
+#        node330:
+      vars:
+        allowed_users:
+          - "Vivaldi"
+          - "Verdi"
+          - "Handel"
+
+    e2e_backend_service:
+      children:
+        node300:
+#        node310:
+#        node320:
+        node400:
+#        node410:
+#        node420:
+      vars:
+        db_name: devdb
+        db_host: database.service.e2e
+        db_host_port: 3306
+
+    e2e_both_service:
+      children:
+        node300:
+      #        node310:
+      #        node320:
+      #        node330:
+
+

@@ -1,0 +1,60 @@
+---
+
+all:
+  children:
+    front_service:
+      children:
+        dev_front_service:
+        e2e_front_service:
+      vars:
+        node_type: "front"
+        git_repo: "https://github.com/stevenjsmin/front_sample.git"
+        react_version: "18.2.0"
+        support_chrome_version: "2024"
+        allowed_users:
+          - "Steven Min"
+          - "Mozart"
+          - "Bach"
+        was_jvm_min_heap: "20G"
+        was_jvm_max_heap: "20G"
+        tomcat_version: "9.0.96"
+
+    backend_service:
+      children:
+        dev_backend_service:
+        e2e_backend_service:
+      vars:
+        node_type: "backend"
+        git_repo: "https://github.com/stevenjsmin/backend_sample.git"
+        service1_port: 9100
+        service2_port: 9200
+        newrelic_apm_install: True
+        newrelic_infra_install: True
+        splunk_agent_install: True
+
+    both_service:
+      children:
+        dev_all_service:
+        e2e_all_service:
+      vars:
+        node_type: "front and backend"
+        var1: "---"
+        var2: "---"
+        var3: "---"
+        var4: "---"
+
+
+    all_service:
+      children:
+        front_service:
+        backend_service:
+        all_service:
+      vars:
+        node_type: ""
+        newrelic_apm_install: False
+        newrelic_infra_install: False
+        splunk_agent_install: False
+        front_app_branch: "release/24.2.0"
+        backend_app_branch: "release/23.11.181"
+        java_version: "11.0.24"
+        os_version: "REHL 2023-11-14/4.18.0-513.5.1.el8_9"

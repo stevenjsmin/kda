@@ -1,0 +1,58 @@
+---
+# tasks file for java
+
+- name: "Prepare installed dirs"
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+      - "{{ tmp_dir }}"
+      - "{{ application_install_dir }}"
+  tags:
+    - java
+
+- name: "Download {{ java_vendor | upper }} Java v{{ java_major_version }}"
+  get_url:
+    url: "{{ java_download_url }}"
+    dest: "{{ application_install_dir }}"
+    validate_certs : false
+    timeout: 120
+  tags:
+    - java
+
+- name: Check the Java download file exists
+  stat:
+    path: "{{ application_install_dir }}/zulu11.74.15-ca-jdk{{ java_major_version }}-linux_x64.tar.gz"
+  register: java_archive_file
+  tags:
+    - java
+
+
+- name: "Extract zulu11.74.15-ca-jdk{{ java_major_version }}-linux_x64.tar.gz into {{ application_install_dir }}"
+  block:
+    - unarchive:
+        src: "{{ application_install_dir }}/zulu11.74.15-ca-jdk{{ java_major_version }}-linux_x64.tar.gz"
+        dest: "{{ application_install_dir }}"
+        remote_src: yes
+      register: extract_result
+
+    - debug: var=extract_result
+
+    - debug:
+        msg:
+            - "Extract dest: {{ extract_result.dest }}"
+            - "Changed result : {{ extract_result.changed }}"
+            - "Downloaded archive file : {{ java_archive_file }}"
+
+    - name: Remove the Java download archive file
+      file:
+        path: "{{ application_install_dir }}/zulu11.74.15-ca-jdk{{ java_major_version }}-linux_x64.tar.gz"
+        state: absent
+      when:
+        - java_archive_file is defined
+        - java_archive_file.stat.exists == True
+
+  tags:
+    - java
+    - install_front_component
