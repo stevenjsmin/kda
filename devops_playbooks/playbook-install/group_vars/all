@@ -16,6 +16,6 @@ tomcat_full_version: "{{ tomcat_major_version }}.{{ tomcat_detail_version }}"
 tomcat_download_url: "https://dlcdn.apache.org/tomcat/tomcat-{{ tomcat_major_version }}/v{{ tomcat_full_version }}/bin/apache-tomcat-{{ tomcat_full_version }}.tar.gz"
 
 root_dir: "/root"
-tmp_dir: "{{ root_dir }}/tmp"
+tmp_dir: "{{ root_dir }}/temp"
 application_install_dir: "{{ root_dir }}/applications"
 

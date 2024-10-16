@@ -5,7 +5,7 @@
     - name: Create install.sh to be run by root/sudo priviliges
       template:
         src: "install.sh.j2"
-        dest: "/root/tmp/install.sh"
+        dest: "/root/temp/install.sh"
         mode: '0755'
 
     #- name: Run install.sh
