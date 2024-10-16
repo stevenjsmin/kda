@@ -4,7 +4,7 @@ all:
   children:
     node100:
       hosts:
-        ec2-3-26-29-109.ap-southeast-2.compute.amazonaws.com:
+        "ip-172-31-40-82.ap-southeast-2.compute.internal":
           service1_port: 8100
           service2_port: 8200
       vars:
@@ -14,7 +14,7 @@ all:
 
     node200:
       hosts:
-        ec2-3-107-165-254.ap-southeast-2.compute.amazonaws.com:
+        "ip-172-31-33-252.ap-southeast-2.compute.internal":
           service1_port: 9100
           service2_port: 9200
       vars:

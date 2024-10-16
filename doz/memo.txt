@@ -1,31 +1,27 @@
+- - - ip-172-31-39-236.ap-southeast-2.compute.internal
+    - ec2-3-26-49-159.ap-southeast-2.compute.amazonaws.com
+    - 3.26.49.159
+    - - control
 
-- - - ip-172-31-46-180.ap-southeast-2.compute.internal
-    - ec2-3-27-227-40.ap-southeast-2.compute.amazonaws.com
-    - 3.27.227.40
-    - - test
+- - - ip-172-31-40-82.ap-southeast-2.compute.internal
+    - ec2-3-25-79-182.ap-southeast-2.compute.amazonaws.com
+    - 3.25.79.182
+    - - node1000
 
+- - - ip-172-31-33-252.ap-southeast-2.compute.internal
+    - ec2-3-24-215-236.ap-southeast-2.compute.amazonaws.com
+    - 3.24.215.236
+    - - node200
 
+- - - ip-172-31-34-153.ap-southeast-2.compute.internal
+    - ec2-13-54-57-196.ap-southeast-2.compute.amazonaws.com
+    - 13.54.57.196
+    - - node300
 
-- - - ip-172-31-36-186.ap-southeast-2.compute.internal
-    - ec2-3-26-29-109.ap-southeast-2.compute.amazonaws.com
-    - 3.26.29.109
-    - - node1
-
-- - - ip-172-31-37-250.ap-southeast-2.compute.internal
-    - ec2-3-107-165-254.ap-southeast-2.compute.amazonaws.com
-    - 3.107.165.254
-    - - node2
-
-- - - ip-172-31-47-61.ap-southeast-2.compute.internal
-    - ec2-13-55-148-149.ap-southeast-2.compute.amazonaws.com
-    - 13.55.148.149
-    - - node3
-
-
-- - - ip-172-31-34-67.ap-southeast-2.compute.internal
-    - ec2-3-26-76-64.ap-southeast-2.compute.amazonaws.com
-    - 3.26.76.64
-    - - node4
+- - - ip-172-31-42-175.ap-southeast-2.compute.internal
+    - ec2-3-106-136-111.ap-southeast-2.compute.amazonaws.com
+    - 3.106.136.111
+    - - node400
 
 
 
