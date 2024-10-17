@@ -23,7 +23,7 @@ sleep 3
 # Check running instances
 echo "\n\n\nRunning instances........"
 #aws ec2 describe-instances  --filters 'Name=instance-state-name,Values=running' --query 'Reservations[*].Instances[*].[PublicIpAddress,PrivateIpAddress,PrivateDnsName,InstanceId,Tags[?Key==`Name`].Value]'
-aws ec2 describe-instances  --filters 'Name=instance-state-name,Values=running' --query 'Reservations[*].Instances[*].[Tags[?Key==`Name`].Value,PrivateDnsName,PublicIpAddress]'
+#aws ec2 describe-instances  --filters 'Name=instance-state-name,Values=running' --query 'Reservations[*].Instances[*].[Tags[?Key==`Name`].Value,PrivateDnsName,PublicIpAddress]'
 aws ec2 describe-instances  --filters 'Name=instance-state-name,Values=running' --query 'Reservations[*].Instances[*].[PrivateDnsName,PublicDnsName,PublicIpAddress,Tags[?Key==`Name`].Value]'
 
 
